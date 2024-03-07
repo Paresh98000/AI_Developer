@@ -121,6 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="2002.i039.010_chatbot_messenger_ai_isometric_set-05.ico" />
+    <Content Include="ProgramConfigTstBuild.xml" />
+    <Content Include="ProgramConfigDevBuild.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

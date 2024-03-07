@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Configurations>
+    <Sr>1</Sr>
+    <PlantId>1</PlantId>
+    <PlantName>Specification</PlantName>
+    <PlantCode>SP</PlantCode>
+    <ConnectionString>Integrated Security=SSPI;Initial Catalog=EX070_MST;Data Source=CQMPRJDEV1</ConnectionString>
+    <Tags>DEV</Tags>
+  </Configurations>
+  <Configurations>
+    <Sr>2</Sr>
+    <PlantId>12</PlantId>
+    <PlantCode>12</PlantCode>
+    <ConnectionString>Integrated Security=SSPI;Initial Catalog=EX070_PLT2;Data Source=CQMPRJDEV1</ConnectionString>
+    <Tags>DEV</Tags>
+  </Configurations>
+  <Configurations>
+    <Sr>3</Sr>
+    <PlantId>03</PlantId>
+    <PlantCode>03</PlantCode>
+    <ConnectionString>Integrated Security=SSPI;Initial Catalog=EX070_PLT1;Data Source=CQMPRJDEV1</ConnectionString>
+    <Tags>DEV</Tags>
+  </Configurations>
+</NewDataSet>
