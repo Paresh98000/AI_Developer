@@ -20,7 +20,6 @@ namespace AI_Developer
         string ConfigurationFile = "ProgramConfig.xml";
         string MainConfigFile = "MainConfigs.xml";
         string Utility_Output_File = "Utility_Output.txt";
-        string Fix_Path_Output = "Fix.txt";
         bool IsConfigured = false, IsInputPending = true, IsGenerateQueryPending = true, IsCheckFisibilityPending = true, IsProvidingFixPending = true, IsRollbackPending = true;
         List<DataSet> Tickets = new List<DataSet>();
 
@@ -34,6 +33,7 @@ namespace AI_Developer
         private DataTable tbl_Update;
         private DataTable tbl_Where;
         private DataTable tbl_Ticket;
+        private DataTable tbl_Gen_Query;
         private DataTable tbl_Check_Feasibility;
         private DataTable tbl_Save_Input;
         private List<string> variableList;
@@ -107,7 +107,6 @@ namespace AI_Developer
             tbl_Save_Input.Columns.Add("Value", "".GetType());
 
             Txt_Utility_Output_Path.Text = Utility_Output_File;
-            Txt_Fix_Path.Text = Fix_Path_Output;
 
             // Check For Existing TicketData
             List<string> files_available = Directory.EnumerateFiles(".").ToList();
@@ -137,6 +136,7 @@ namespace AI_Developer
                 tbl.Columns.Add("PlantName", "".GetType());
                 tbl.Columns.Add("PlantCode", "".GetType());
                 tbl.Columns.Add("ConnectionString", "".GetType());
+                tbl.Columns.Add("Tags", "".GetType());
                 DGV_Configuration.DataSource = tbl;
                 DGV_Configuration.Columns[0].Width = 30;
             }
@@ -160,7 +160,7 @@ namespace AI_Developer
             tbl_field_update.Columns.Add("Value_List", "".GetType());
             tbl_field_update.Columns.Add("WhereFieldsId_List", "".GetType());
             tbl_field_update.Columns.Add("IsInsert", true.GetType());
-            tbl_field_update.Columns.Add("Ins_Query", "".GetType());
+            tbl_field_update.Columns.Add("IsDelete", true.GetType());
             DGV_Update_Fields_For_Fix.DataSource = tbl_field_update;
             DGV_Update_Fields_For_Fix.Columns[0].Width = 30;
 
@@ -178,6 +178,16 @@ namespace AI_Developer
             tbl_field_feasibility.Columns.Add("Condition", "".GetType());
             DGV_Check_Feasibility.DataSource = tbl_field_feasibility;
             DGV_Check_Feasibility.Columns[0].Width = 30;
+
+            DataTable tbl_GeneratedQueryLog = new DataTable();
+            tbl_GeneratedQueryLog.Columns.Add("Sr", 1.GetType());
+            tbl_GeneratedQueryLog.Columns.Add("TicketNo", "".GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Database_Id", 1.GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Fix_Query", "".GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Rollback_Query", "".GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Fix_Given_At", "".GetType());
+            dgv_Gen_Query_Log.DataSource = tbl_GeneratedQueryLog;
+            dgv_Gen_Query_Log.Columns[0].Width = 30;
 
             if (File.Exists(MainConfigFile))
             {
@@ -424,6 +434,8 @@ namespace AI_Developer
 
         private void Btn_Gen_Query_Click(object sender, EventArgs e)
         {
+            DataTable tbl_gen_query = (DataTable)dgv_Gen_Query_Log.DataSource;
+            DataRow r = tbl_gen_query.NewRow();
             if (!IsGenerateQueryPending)
             {
                 // prepare queries
@@ -520,8 +532,15 @@ namespace AI_Developer
                     Rtxt_Querybox.Text += Environment.NewLine + "-- Update";
                     Rtxt_Querybox.Text += Environment.NewLine + "--** Rollback Query";
                     Rtxt_Querybox.Text += Environment.NewLine + rollbackQuery[k] + Environment.NewLine;
+                    r["TicketNo"] = "";
+                    r["TicketNo"] = "";
+                    r["Fix_Query"] = "";
+                    r["Rollback_Query"] = "";
+                    r["Fix_Given_At"] = "";
                     Rtxt_Querybox.Text += Environment.NewLine + "--** Fix Query";
                     Rtxt_Querybox.Text += Environment.NewLine + updateQuery[k] + Environment.NewLine;
+
+                    
                 }
 
                 Btn_Gen_Query.Enabled = false;
@@ -724,7 +743,6 @@ namespace AI_Developer
             if (result == DialogResult.OK)
             {
                 Utility_Output_File = openFileDialog.FileName;
-                Txt_Fix_Path.Text = Utility_Output_File;
             }
         }
 

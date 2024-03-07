@@ -37,9 +37,6 @@ namespace AI_Developer
             this.txt_Password = new System.Windows.Forms.TextBox();
             this.txt_Username = new System.Windows.Forms.MaskedTextBox();
             this.tb_Configure = new System.Windows.Forms.TabPage();
-            this.Btn_Fix_Path_Browse = new System.Windows.Forms.Button();
-            this.Txt_Fix_Path = new System.Windows.Forms.TextBox();
-            this.Lbl_Fix_Path = new System.Windows.Forms.Label();
             this.Btn_Modify = new System.Windows.Forms.Button();
             this.Btn_Configure = new System.Windows.Forms.Button();
             this.lbl_info_configure = new System.Windows.Forms.Label();
@@ -91,6 +88,11 @@ namespace AI_Developer
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.Cmb_Ticket_ProvidingFix = new System.Windows.Forms.ComboBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgv_Gen_Query_Log = new System.Windows.Forms.DataGridView();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tb_main.SuspendLayout();
             this.tb_Login.SuspendLayout();
             this.tb_Configure.SuspendLayout();
@@ -106,6 +108,8 @@ namespace AI_Developer
             this.tb_Execute.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Fix)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Gen_Query_Log)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_main
@@ -175,9 +179,6 @@ namespace AI_Developer
             // 
             // tb_Configure
             // 
-            this.tb_Configure.Controls.Add(this.Btn_Fix_Path_Browse);
-            this.tb_Configure.Controls.Add(this.Txt_Fix_Path);
-            this.tb_Configure.Controls.Add(this.Lbl_Fix_Path);
             this.tb_Configure.Controls.Add(this.Btn_Modify);
             this.tb_Configure.Controls.Add(this.Btn_Configure);
             this.tb_Configure.Controls.Add(this.lbl_info_configure);
@@ -189,32 +190,6 @@ namespace AI_Developer
             this.tb_Configure.TabIndex = 1;
             this.tb_Configure.Text = "Configure";
             this.tb_Configure.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Fix_Path_Browse
-            // 
-            this.Btn_Fix_Path_Browse.Location = new System.Drawing.Point(341, 80);
-            this.Btn_Fix_Path_Browse.Name = "Btn_Fix_Path_Browse";
-            this.Btn_Fix_Path_Browse.Size = new System.Drawing.Size(75, 23);
-            this.Btn_Fix_Path_Browse.TabIndex = 7;
-            this.Btn_Fix_Path_Browse.Text = "Browse";
-            this.Btn_Fix_Path_Browse.UseVisualStyleBackColor = true;
-            this.Btn_Fix_Path_Browse.Click += new System.EventHandler(this.Btn_Fix_Path_Browse_Click);
-            // 
-            // Txt_Fix_Path
-            // 
-            this.Txt_Fix_Path.Location = new System.Drawing.Point(90, 82);
-            this.Txt_Fix_Path.Name = "Txt_Fix_Path";
-            this.Txt_Fix_Path.Size = new System.Drawing.Size(245, 20);
-            this.Txt_Fix_Path.TabIndex = 6;
-            // 
-            // Lbl_Fix_Path
-            // 
-            this.Lbl_Fix_Path.AutoSize = true;
-            this.Lbl_Fix_Path.Location = new System.Drawing.Point(11, 85);
-            this.Lbl_Fix_Path.Name = "Lbl_Fix_Path";
-            this.Lbl_Fix_Path.Size = new System.Drawing.Size(54, 13);
-            this.Lbl_Fix_Path.TabIndex = 5;
-            this.Lbl_Fix_Path.Text = "Fix Path : ";
             // 
             // Btn_Modify
             // 
@@ -262,11 +237,14 @@ namespace AI_Developer
             // 
             // tb_Utility
             // 
+            this.tb_Utility.Controls.Add(this.label14);
+            this.tb_Utility.Controls.Add(this.label13);
             this.tb_Utility.Controls.Add(this.Rd_Utility_Alter);
             this.tb_Utility.Controls.Add(this.Rd_Utility_Create);
             this.tb_Utility.Controls.Add(this.Btn_Utility_Output_Path);
             this.tb_Utility.Controls.Add(this.Txt_Utility_Output_Path);
             this.tb_Utility.Controls.Add(this.Lbl_OutPut_Path);
+            this.tb_Utility.Controls.Add(this.textBox1);
             this.tb_Utility.Controls.Add(this.Txt_UtilityInputTxt);
             this.tb_Utility.Controls.Add(this.Btn_Utility_Backup_STP_All_Db);
             this.tb_Utility.Location = new System.Drawing.Point(4, 22);
@@ -301,7 +279,7 @@ namespace AI_Developer
             // 
             // Btn_Utility_Output_Path
             // 
-            this.Btn_Utility_Output_Path.Location = new System.Drawing.Point(339, 135);
+            this.Btn_Utility_Output_Path.Location = new System.Drawing.Point(339, 358);
             this.Btn_Utility_Output_Path.Name = "Btn_Utility_Output_Path";
             this.Btn_Utility_Output_Path.Size = new System.Drawing.Size(75, 23);
             this.Btn_Utility_Output_Path.TabIndex = 4;
@@ -311,7 +289,7 @@ namespace AI_Developer
             // 
             // Txt_Utility_Output_Path
             // 
-            this.Txt_Utility_Output_Path.Location = new System.Drawing.Point(88, 137);
+            this.Txt_Utility_Output_Path.Location = new System.Drawing.Point(88, 360);
             this.Txt_Utility_Output_Path.Name = "Txt_Utility_Output_Path";
             this.Txt_Utility_Output_Path.Size = new System.Drawing.Size(245, 20);
             this.Txt_Utility_Output_Path.TabIndex = 3;
@@ -319,7 +297,7 @@ namespace AI_Developer
             // Lbl_OutPut_Path
             // 
             this.Lbl_OutPut_Path.AutoSize = true;
-            this.Lbl_OutPut_Path.Location = new System.Drawing.Point(9, 140);
+            this.Lbl_OutPut_Path.Location = new System.Drawing.Point(9, 363);
             this.Lbl_OutPut_Path.Name = "Lbl_OutPut_Path";
             this.Lbl_OutPut_Path.Size = new System.Drawing.Size(73, 13);
             this.Lbl_OutPut_Path.TabIndex = 2;
@@ -327,7 +305,7 @@ namespace AI_Developer
             // 
             // Txt_UtilityInputTxt
             // 
-            this.Txt_UtilityInputTxt.Location = new System.Drawing.Point(9, 7);
+            this.Txt_UtilityInputTxt.Location = new System.Drawing.Point(6, 34);
             this.Txt_UtilityInputTxt.Multiline = true;
             this.Txt_UtilityInputTxt.Name = "Txt_UtilityInputTxt";
             this.Txt_UtilityInputTxt.Size = new System.Drawing.Size(324, 126);
@@ -358,6 +336,7 @@ namespace AI_Developer
             // 
             this.tb_ca_fix.Controls.Add(this.tb_Add_Fix);
             this.tb_ca_fix.Controls.Add(this.tb_Execute);
+            this.tb_ca_fix.Controls.Add(this.tabPage2);
             this.tb_ca_fix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tb_ca_fix.Location = new System.Drawing.Point(3, 3);
             this.tb_ca_fix.Name = "tb_ca_fix";
@@ -742,6 +721,51 @@ namespace AI_Developer
             this.Cmb_Ticket_ProvidingFix.TabIndex = 1;
             this.Cmb_Ticket_ProvidingFix.SelectedIndexChanged += new System.EventHandler(this.Cmb_Ticket_ProvidingFix_SelectedIndexChanged);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dgv_Gen_Query_Log);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(635, 602);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Logs";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dgv_Gen_Query_Log
+            // 
+            this.dgv_Gen_Query_Log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Gen_Query_Log.Location = new System.Drawing.Point(6, 6);
+            this.dgv_Gen_Query_Log.Name = "dgv_Gen_Query_Log";
+            this.dgv_Gen_Query_Log.Size = new System.Drawing.Size(623, 80);
+            this.dgv_Gen_Query_Log.TabIndex = 11;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 15);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(62, 13);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "Database : ";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 187);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(324, 126);
+            this.textBox1.TabIndex = 1;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 168);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(68, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Application : ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -773,6 +797,8 @@ namespace AI_Developer
             this.tb_Execute.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Filter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Fix)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Gen_Query_Log)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -837,9 +863,11 @@ namespace AI_Developer
         private System.Windows.Forms.Label Lbl_OutPut_Path;
         private System.Windows.Forms.RadioButton Rd_Utility_Alter;
         private System.Windows.Forms.RadioButton Rd_Utility_Create;
-        private System.Windows.Forms.Button Btn_Fix_Path_Browse;
-        private System.Windows.Forms.TextBox Txt_Fix_Path;
-        private System.Windows.Forms.Label Lbl_Fix_Path;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView dgv_Gen_Query_Log;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
