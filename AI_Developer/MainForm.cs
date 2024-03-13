@@ -55,7 +55,7 @@ namespace AI_Developer
             if (tb_main.SelectedIndex > 0 && !IsLoggedIn)
             {
                 tb_main.SelectedIndex = 0;
-                MessageBox.Show("Please login.", "Developer");
+                MessageBox.Show("Please login.", "AI Developer");
             }
 
         }
