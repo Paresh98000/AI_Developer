@@ -471,8 +471,42 @@ namespace AI_Developer
 
                     for (int l = 0; l < updateColList.Count; l++)
                     {
-                        updateQuery[k] += " Set " + updateColList[l] + " = '" + updateValList[l] + "',";
-                        DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(k + 1)} And Column = '{updateColList[l]}'");
+                        string setValue = "";
+                        if (updateValList[l].Contains("var") || updateValList[l].Contains("Var"))
+                        {
+                            if (variableList.Contains(updateValList[l]))
+                            {
+                                int ind = variableList.IndexOf(updateValList[l].ToString());
+                                string colm = columnList[ind];
+                                string temp_C = "0";
+                                temp_C = tbl_Input.Select($"Var_Name_List like '%{updateValList[l]}%'")[0][0].ToString();
+
+                                DataRow[] saveIn_c = tbl_Save_Input.Select($"InputNo={(temp_C)} And Column = '{colm}'");
+                                string str_values_c = "";
+                                if (saveIn_c.Length > 0)
+                                    str_values_c = "";
+                                for (int j = 0; j < saveIn_c.Length; j++)
+                                {
+                                    str_values_c += saveIn_c[j][3].ToString() + ",'";
+                                }
+                                if (saveIn_c.Length > 0)
+                                    str_values_c = str_values_c.Substring(0, str_values_c.Length - 2);
+
+                                setValue = str_values_c;
+                            }
+                        }
+                        else
+                            setValue = updateValList[l];
+
+                        if (updateQuery[k].Contains("Set"))
+                            updateQuery[k] += updateColList[l] + " = '" + updateValList[l] + "', ";
+                        else
+                            updateQuery[k] += " Set " + updateColList[l] + " = '" + updateValList[l] + "', ";
+
+                        string temp_k = "0";
+                        temp_k = tbl_Input.Select($"Var_Name_List like '%{updateValList[l]}%'")[0][0].ToString();
+
+                        DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(temp_k)} And Column = '{updateColList[l]}'");
                         string str_values = "";
                         if (saveIn.Length > 0)
                             str_values = "'";
@@ -482,10 +516,16 @@ namespace AI_Developer
                         }
                         if (saveIn.Length > 0)
                             str_values = str_values.Substring(0, str_values.Length - 2);
-                        rollbackQuery[k] += " Set " + updateColList[l] + " = " + str_values + "";
+
+                        if (rollbackQuery[k].Contains("Set"))
+                            rollbackQuery[k] += updateColList[l] + " = " + str_values + ", ";
+                        else
+                            rollbackQuery[k] += " Set " + updateColList[l] + " = " + str_values + ", ";
+
                     }
 
-                    updateQuery[k] = updateQuery[k].Substring(0, updateQuery[k].Length - 1);
+                    updateQuery[k] = updateQuery[k].Substring(0, updateQuery[k].Length - 2);
+                    rollbackQuery[k] = rollbackQuery[k].Substring(0, rollbackQuery[k].Length - 2);
 
                     //where fields
                     string whereRecs = tbl_Update.Rows[k]["WhereFieldsId_List"].ToString();
@@ -503,7 +543,10 @@ namespace AI_Developer
                             {
                                 int ind = variableList.IndexOf(rows[l][2].ToString());
                                 string colm = columnList[ind];
-                                DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(k + 1)} And Column = '{colm}'");
+                                string temp_k = "0";
+                                temp_k = tbl_Input.Select($"Var_Name_List like '%{rows[l][2]}%'")[0][0].ToString();
+
+                                DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(temp_k)} And Column = '{colm}'");
                                 string str_values = "";
                                 if (saveIn.Length > 0)
                                     str_values = "'";
