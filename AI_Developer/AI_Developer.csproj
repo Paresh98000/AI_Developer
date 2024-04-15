@@ -123,6 +123,9 @@
     <Content Include="2002.i039.010_chatbot_messenger_ai_isometric_set-05.ico" />
     <Content Include="ProgramConfigTstBuild.xml" />
     <Content Include="ProgramConfigDevBuild.xml" />
+    <Content Include="Ref Dlls\PSBS_DB.dll" />
+    <Content Include="Ref Dlls\PSBS_Log.dll" />
+    <Content Include="Ref Dlls\System.Data.SQLite.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
