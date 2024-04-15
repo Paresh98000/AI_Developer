@@ -499,9 +499,9 @@ namespace AI_Developer
                             setValue = updateValList[l];
 
                         if (updateQuery[k].Contains("Set"))
-                            updateQuery[k] += updateColList[l] + " = '" + updateValList[l] + "', ";
+                            updateQuery[k] += updateColList[l] + " = '" + setValue + "', ";
                         else
-                            updateQuery[k] += " Set " + updateColList[l] + " = '" + updateValList[l] + "', ";
+                            updateQuery[k] += " Set " + updateColList[l] + " = '" + setValue + "', ";
 
                         string temp_k = "0";
                         temp_k = tbl_Input.Select($"Var_Name_List like '%{updateValList[l]}%'")[0][0].ToString();
