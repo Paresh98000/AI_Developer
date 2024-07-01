@@ -77,7 +77,9 @@ namespace AI_Developer
 
         private void Btn_Configure_Click(object sender, EventArgs e)
         {
-            DataTable data;
+            DataSet set = new DataSet("Configs");
+            DataTable data,data2;
+
             data = (DataTable)DGV_Configuration.DataSource;
             List<DataRow> emptyRows = new List<DataRow>();
             for (int i = 0; i < data.Rows.Count; i++)
@@ -90,11 +92,31 @@ namespace AI_Developer
                 data.Rows.Remove(emptyr);
             }
             data.AcceptChanges();
-            data.WriteXml(ConfigurationFile);
+
+            data2 = new DataTable("App_Config");
+
+            data2.Columns.Add("Sr.", typeof(int));
+            data2.Columns.Add("Tag", typeof(string));
+            data2.Columns.Add("Path", typeof(string));
+            data2.Columns.Add("Common_Path", typeof(string));
+
+            DataRow r = data2.NewRow();
+            r[0] = 1;
+            r[1] = "";
+            r[2] = txt_Config_App_Path.Text;
+            r[3] = Txt_Common_Output_Path.Text;
+            data2.Rows.Add(r);
+            data2.AcceptChanges();
+
+            set.Tables.Add(data.Copy());
+            set.Tables.Add(data2);
+            set.WriteXml(ConfigurationFile);
             DGV_Configuration.EditMode = DataGridViewEditMode.EditProgrammatically;
             Btn_Configure.Enabled = false;
             Btn_Modify.Enabled = true;
             IsConfigured = true;
+            txt_Config_App_Path.Enabled = false;
+            Txt_Common_Output_Path.Enabled = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -127,6 +149,21 @@ namespace AI_Developer
                 DataSet set = new DataSet();
                 set.ReadXml(ConfigurationFile);
                 DGV_Configuration.DataSource = set.Tables[0];
+                if (set.Tables.Count > 1)
+                {
+                    DataTable data2 = set.Tables[1];
+                    if (data2 != null && data2.Rows.Count>0)
+                    {
+                        DataRow r = data2.Rows[0];
+                        txt_Config_App_Path.Text = r[2].ToString();
+                        Txt_Common_Output_Path.Text = r[3].ToString();
+                        if (Txt_Common_Output_Path.Text.Trim().Length > 0)
+                        {
+                            Utility_Output_File = Txt_Common_Output_Path.Text;
+                            Txt_Utility_Output_Path.Text = Utility_Output_File;
+                        }
+                    }
+                }
             }
             else
             {
@@ -207,11 +244,15 @@ namespace AI_Developer
             {
                 DGV_Configuration.EditMode = DataGridViewEditMode.EditProgrammatically;
                 Btn_Configure.Enabled = false;
+                txt_Config_App_Path.Enabled = false;
+                Txt_Common_Output_Path.Enabled = false;
             }
             else
             {
                 DGV_Configuration.EditMode = DataGridViewEditMode.EditOnKeystroke;
                 Btn_Modify.Enabled = false;
+                txt_Config_App_Path.Enabled = true;
+                Txt_Common_Output_Path.Enabled = true;
             }
         }
 
@@ -226,6 +267,8 @@ namespace AI_Developer
             Btn_Modify.Enabled = false;
             Btn_Configure.Enabled = true;
             IsConfigured = false;
+            txt_Config_App_Path.Enabled = true;
+            Txt_Common_Output_Path.Enabled = true;
         }
 
         private void OnFormCloseing(object sender, FormClosedEventArgs e)
@@ -766,13 +809,11 @@ namespace AI_Developer
 
         private void Btn_Utility_Output_Path_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Application.StartupPath;
-            openFileDialog.Multiselect = false;
+            FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Utility_Output_File = openFileDialog.FileName;
+                Utility_Output_File = Path.Combine(openFileDialog.SelectedPath,"All_Object_Combined.sql");
                 Txt_Utility_Output_Path.Text = Utility_Output_File;
             }
         }
@@ -787,6 +828,62 @@ namespace AI_Developer
             {
                 Utility_Output_File = openFileDialog.FileName;
             }
+        }
+
+        private void Btn_Utility_Backup_App_Click(object sender, EventArgs e)
+        {
+            string path = txt_Config_App_Path.Text;
+            if (path.Trim().Length == 0)
+            {
+                MessageBox.Show("Invalid application path.");
+                return;
+            }
+
+            if (!Directory.Exists(path))
+            {
+                MessageBox.Show("Directory not exists."+Environment.NewLine+path);
+                return;
+            }
+
+            string files_list = txt_utility_app_backup.Text;
+
+            if (files_list.Trim().Length == 0)
+            {
+                MessageBox.Show("Please enter valid file names in application backup.");
+                return;
+            }
+
+            string errors = "Below files not exists.",full_path = "",output_path="",new_output_dir="";
+            errors += Environment.NewLine;
+            string output_dir = Path.GetDirectoryName(Utility_Output_File);
+            if (output_dir.Trim().Length == 0) { output_dir = "."; }
+            foreach(string f_name in files_list.Split('\n'))
+            {
+                if (f_name.Trim().Length > 0)
+                {
+                    full_path = Path.Combine(path, f_name);
+                    output_path = Path.Combine(output_dir, f_name);
+                    new_output_dir = Path.GetDirectoryName(output_path);
+                    if (!File.Exists(full_path))
+                    {
+                        errors += full_path + Environment.NewLine;
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(new_output_dir))
+                        {
+                            Directory.CreateDirectory(new_output_dir);
+                        }
+                        File.Copy(full_path, output_path);
+                    }
+                }
+            }
+            MessageBox.Show("Application backup done.");
+        }
+
+        private void Txt_Utility_Output_Path_Changed(object sender, EventArgs e)
+        {
+            Utility_Output_File = Txt_Utility_Output_Path.Text;
         }
 
         private void DGV_Input_Filter_Cell_Validating(object sender, DataGridViewCellValidatingEventArgs e)
