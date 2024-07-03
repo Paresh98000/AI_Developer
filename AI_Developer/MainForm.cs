@@ -749,7 +749,7 @@ namespace AI_Developer
                 dbname = dbname.Split(';')[0];
                 all_db_data += Environment.NewLine + $"Use {dbname};" + Environment.NewLine;
                 string all_stp_data = "";
-                string folder_Path = Path.Combine(Path.GetDirectoryName(Utility_Output_File), dbname);
+                string folder_Path = Path.Combine(Path.GetDirectoryName(Utility_Output_File),"DB", dbname);
                 if (!Directory.Exists(folder_Path))
                 {
                     Directory.CreateDirectory(folder_Path);
@@ -861,8 +861,8 @@ namespace AI_Developer
             {
                 if (f_name.Trim().Length > 0)
                 {
-                    full_path = Path.Combine(path, f_name);
-                    output_path = Path.Combine(output_dir, f_name);
+                    full_path = Path.Combine(path, f_name.Trim());
+                    output_path = Path.Combine(output_dir,"App", f_name.Trim());
                     new_output_dir = Path.GetDirectoryName(output_path);
                     if (!File.Exists(full_path))
                     {
@@ -874,7 +874,7 @@ namespace AI_Developer
                         {
                             Directory.CreateDirectory(new_output_dir);
                         }
-                        File.Copy(full_path, output_path);
+                        File.Copy(full_path, output_path,true);
                     }
                 }
             }
