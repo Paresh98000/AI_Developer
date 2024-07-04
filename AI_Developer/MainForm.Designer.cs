@@ -37,11 +37,21 @@ namespace AI_Developer
             this.txt_Password = new System.Windows.Forms.TextBox();
             this.txt_Username = new System.Windows.Forms.MaskedTextBox();
             this.tb_Configure = new System.Windows.Forms.TabPage();
+            this.Btn_Fix_Path_Browse = new System.Windows.Forms.Button();
+            this.Txt_Fix_Path = new System.Windows.Forms.TextBox();
+            this.Lbl_Fix_Path = new System.Windows.Forms.Label();
             this.Btn_Modify = new System.Windows.Forms.Button();
             this.Btn_Configure = new System.Windows.Forms.Button();
             this.lbl_info_configure = new System.Windows.Forms.Label();
             this.DGV_Configuration = new System.Windows.Forms.DataGridView();
             this.tb_Utility = new System.Windows.Forms.TabPage();
+            this.Rd_Utility_Alter = new System.Windows.Forms.RadioButton();
+            this.Rd_Utility_Create = new System.Windows.Forms.RadioButton();
+            this.Btn_Utility_Output_Path = new System.Windows.Forms.Button();
+            this.Txt_Utility_Output_Path = new System.Windows.Forms.TextBox();
+            this.Lbl_OutPut_Path = new System.Windows.Forms.Label();
+            this.Txt_UtilityInputTxt = new System.Windows.Forms.TextBox();
+            this.Btn_Utility_Backup_STP_All_Db = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tb_ca_fix = new System.Windows.Forms.TabControl();
             this.tb_Add_Fix = new System.Windows.Forms.TabPage();
@@ -81,10 +91,13 @@ namespace AI_Developer
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.Cmb_Ticket_ProvidingFix = new System.Windows.Forms.ComboBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgv_Gen_Query_Log = new System.Windows.Forms.DataGridView();
             this.tb_main.SuspendLayout();
             this.tb_Login.SuspendLayout();
             this.tb_Configure.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Configuration)).BeginInit();
+            this.tb_Utility.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tb_ca_fix.SuspendLayout();
             this.tb_Add_Fix.SuspendLayout();
@@ -95,6 +108,8 @@ namespace AI_Developer
             this.tb_Execute.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Fix)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Gen_Query_Log)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_main
@@ -120,7 +135,7 @@ namespace AI_Developer
             this.tb_Login.Location = new System.Drawing.Point(4, 22);
             this.tb_Login.Name = "tb_Login";
             this.tb_Login.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Login.Size = new System.Drawing.Size(649, 779);
+            this.tb_Login.Size = new System.Drawing.Size(649, 634);
             this.tb_Login.TabIndex = 0;
             this.tb_Login.Text = "Log In";
             this.tb_Login.UseVisualStyleBackColor = true;
@@ -164,6 +179,9 @@ namespace AI_Developer
             // 
             // tb_Configure
             // 
+            this.tb_Configure.Controls.Add(this.Btn_Fix_Path_Browse);
+            this.tb_Configure.Controls.Add(this.Txt_Fix_Path);
+            this.tb_Configure.Controls.Add(this.Lbl_Fix_Path);
             this.tb_Configure.Controls.Add(this.Btn_Modify);
             this.tb_Configure.Controls.Add(this.Btn_Configure);
             this.tb_Configure.Controls.Add(this.lbl_info_configure);
@@ -171,10 +189,36 @@ namespace AI_Developer
             this.tb_Configure.Location = new System.Drawing.Point(4, 22);
             this.tb_Configure.Name = "tb_Configure";
             this.tb_Configure.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Configure.Size = new System.Drawing.Size(649, 779);
+            this.tb_Configure.Size = new System.Drawing.Size(649, 634);
             this.tb_Configure.TabIndex = 1;
             this.tb_Configure.Text = "Configure";
             this.tb_Configure.UseVisualStyleBackColor = true;
+            // 
+            // Btn_Fix_Path_Browse
+            // 
+            this.Btn_Fix_Path_Browse.Location = new System.Drawing.Point(341, 80);
+            this.Btn_Fix_Path_Browse.Name = "Btn_Fix_Path_Browse";
+            this.Btn_Fix_Path_Browse.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Fix_Path_Browse.TabIndex = 7;
+            this.Btn_Fix_Path_Browse.Text = "Browse";
+            this.Btn_Fix_Path_Browse.UseVisualStyleBackColor = true;
+            this.Btn_Fix_Path_Browse.Click += new System.EventHandler(this.Btn_Fix_Path_Browse_Click);
+            // 
+            // Txt_Fix_Path
+            // 
+            this.Txt_Fix_Path.Location = new System.Drawing.Point(90, 82);
+            this.Txt_Fix_Path.Name = "Txt_Fix_Path";
+            this.Txt_Fix_Path.Size = new System.Drawing.Size(245, 20);
+            this.Txt_Fix_Path.TabIndex = 6;
+            // 
+            // Lbl_Fix_Path
+            // 
+            this.Lbl_Fix_Path.AutoSize = true;
+            this.Lbl_Fix_Path.Location = new System.Drawing.Point(11, 85);
+            this.Lbl_Fix_Path.Name = "Lbl_Fix_Path";
+            this.Lbl_Fix_Path.Size = new System.Drawing.Size(54, 13);
+            this.Lbl_Fix_Path.TabIndex = 5;
+            this.Lbl_Fix_Path.Text = "Fix Path : ";
             // 
             // Btn_Modify
             // 
@@ -214,7 +258,7 @@ namespace AI_Developer
             this.DGV_Configuration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Configuration.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.DGV_Configuration.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.DGV_Configuration.Location = new System.Drawing.Point(3, 280);
+            this.DGV_Configuration.Location = new System.Drawing.Point(3, 135);
             this.DGV_Configuration.Name = "DGV_Configuration";
             this.DGV_Configuration.Size = new System.Drawing.Size(643, 496);
             this.DGV_Configuration.TabIndex = 3;
@@ -222,13 +266,86 @@ namespace AI_Developer
             // 
             // tb_Utility
             // 
+            this.tb_Utility.Controls.Add(this.Rd_Utility_Alter);
+            this.tb_Utility.Controls.Add(this.Rd_Utility_Create);
+            this.tb_Utility.Controls.Add(this.Btn_Utility_Output_Path);
+            this.tb_Utility.Controls.Add(this.Txt_Utility_Output_Path);
+            this.tb_Utility.Controls.Add(this.Lbl_OutPut_Path);
+            this.tb_Utility.Controls.Add(this.Txt_UtilityInputTxt);
+            this.tb_Utility.Controls.Add(this.Btn_Utility_Backup_STP_All_Db);
             this.tb_Utility.Location = new System.Drawing.Point(4, 22);
             this.tb_Utility.Name = "tb_Utility";
             this.tb_Utility.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Utility.Size = new System.Drawing.Size(649, 779);
+            this.tb_Utility.Size = new System.Drawing.Size(649, 634);
             this.tb_Utility.TabIndex = 2;
             this.tb_Utility.Text = "Utility";
             this.tb_Utility.UseVisualStyleBackColor = true;
+            // 
+            // Rd_Utility_Alter
+            // 
+            this.Rd_Utility_Alter.AutoSize = true;
+            this.Rd_Utility_Alter.Location = new System.Drawing.Point(402, 35);
+            this.Rd_Utility_Alter.Name = "Rd_Utility_Alter";
+            this.Rd_Utility_Alter.Size = new System.Drawing.Size(46, 17);
+            this.Rd_Utility_Alter.TabIndex = 5;
+            this.Rd_Utility_Alter.TabStop = true;
+            this.Rd_Utility_Alter.Text = "Alter";
+            this.Rd_Utility_Alter.UseVisualStyleBackColor = true;
+            // 
+            // Rd_Utility_Create
+            // 
+            this.Rd_Utility_Create.AutoSize = true;
+            this.Rd_Utility_Create.Location = new System.Drawing.Point(340, 36);
+            this.Rd_Utility_Create.Name = "Rd_Utility_Create";
+            this.Rd_Utility_Create.Size = new System.Drawing.Size(56, 17);
+            this.Rd_Utility_Create.TabIndex = 5;
+            this.Rd_Utility_Create.TabStop = true;
+            this.Rd_Utility_Create.Text = "Create";
+            this.Rd_Utility_Create.UseVisualStyleBackColor = true;
+            // 
+            // Btn_Utility_Output_Path
+            // 
+            this.Btn_Utility_Output_Path.Location = new System.Drawing.Point(339, 135);
+            this.Btn_Utility_Output_Path.Name = "Btn_Utility_Output_Path";
+            this.Btn_Utility_Output_Path.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Utility_Output_Path.TabIndex = 4;
+            this.Btn_Utility_Output_Path.Text = "Browse";
+            this.Btn_Utility_Output_Path.UseVisualStyleBackColor = true;
+            this.Btn_Utility_Output_Path.Click += new System.EventHandler(this.Btn_Utility_Output_Path_Click);
+            // 
+            // Txt_Utility_Output_Path
+            // 
+            this.Txt_Utility_Output_Path.Location = new System.Drawing.Point(88, 137);
+            this.Txt_Utility_Output_Path.Name = "Txt_Utility_Output_Path";
+            this.Txt_Utility_Output_Path.Size = new System.Drawing.Size(245, 20);
+            this.Txt_Utility_Output_Path.TabIndex = 3;
+            // 
+            // Lbl_OutPut_Path
+            // 
+            this.Lbl_OutPut_Path.AutoSize = true;
+            this.Lbl_OutPut_Path.Location = new System.Drawing.Point(9, 140);
+            this.Lbl_OutPut_Path.Name = "Lbl_OutPut_Path";
+            this.Lbl_OutPut_Path.Size = new System.Drawing.Size(73, 13);
+            this.Lbl_OutPut_Path.TabIndex = 2;
+            this.Lbl_OutPut_Path.Text = "Output Path : ";
+            // 
+            // Txt_UtilityInputTxt
+            // 
+            this.Txt_UtilityInputTxt.Location = new System.Drawing.Point(9, 7);
+            this.Txt_UtilityInputTxt.Multiline = true;
+            this.Txt_UtilityInputTxt.Name = "Txt_UtilityInputTxt";
+            this.Txt_UtilityInputTxt.Size = new System.Drawing.Size(324, 126);
+            this.Txt_UtilityInputTxt.TabIndex = 1;
+            // 
+            // Btn_Utility_Backup_STP_All_Db
+            // 
+            this.Btn_Utility_Backup_STP_All_Db.Location = new System.Drawing.Point(339, 6);
+            this.Btn_Utility_Backup_STP_All_Db.Name = "Btn_Utility_Backup_STP_All_Db";
+            this.Btn_Utility_Backup_STP_All_Db.Size = new System.Drawing.Size(302, 23);
+            this.Btn_Utility_Backup_STP_All_Db.TabIndex = 0;
+            this.Btn_Utility_Backup_STP_All_Db.Text = "Take STP Backup From All Databases";
+            this.Btn_Utility_Backup_STP_All_Db.UseVisualStyleBackColor = true;
+            this.Btn_Utility_Backup_STP_All_Db.Click += new System.EventHandler(this.Btn_Utility_Backup_STP_All_Db_Click);
             // 
             // tabPage1
             // 
@@ -245,6 +362,7 @@ namespace AI_Developer
             // 
             this.tb_ca_fix.Controls.Add(this.tb_Add_Fix);
             this.tb_ca_fix.Controls.Add(this.tb_Execute);
+            this.tb_ca_fix.Controls.Add(this.tabPage2);
             this.tb_ca_fix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tb_ca_fix.Location = new System.Drawing.Point(3, 3);
             this.tb_ca_fix.Name = "tb_ca_fix";
@@ -629,6 +747,25 @@ namespace AI_Developer
             this.Cmb_Ticket_ProvidingFix.TabIndex = 1;
             this.Cmb_Ticket_ProvidingFix.SelectedIndexChanged += new System.EventHandler(this.Cmb_Ticket_ProvidingFix_SelectedIndexChanged);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dgv_Gen_Query_Log);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(635, 602);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Logs";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dgv_Gen_Query_Log
+            // 
+            this.dgv_Gen_Query_Log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Gen_Query_Log.Location = new System.Drawing.Point(6, 6);
+            this.dgv_Gen_Query_Log.Name = "dgv_Gen_Query_Log";
+            this.dgv_Gen_Query_Log.Size = new System.Drawing.Size(623, 80);
+            this.dgv_Gen_Query_Log.TabIndex = 11;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -646,6 +783,8 @@ namespace AI_Developer
             this.tb_Configure.ResumeLayout(false);
             this.tb_Configure.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Configuration)).EndInit();
+            this.tb_Utility.ResumeLayout(false);
+            this.tb_Utility.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tb_ca_fix.ResumeLayout(false);
             this.tb_Add_Fix.ResumeLayout(false);
@@ -658,6 +797,8 @@ namespace AI_Developer
             this.tb_Execute.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Filter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Fix)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Gen_Query_Log)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -715,6 +856,18 @@ namespace AI_Developer
         private System.Windows.Forms.DataGridView DGV_Input_Filter;
         private System.Windows.Forms.DataGridView DGV_Check_Feasibility;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button Btn_Utility_Backup_STP_All_Db;
+        private System.Windows.Forms.TextBox Txt_UtilityInputTxt;
+        private System.Windows.Forms.Button Btn_Utility_Output_Path;
+        private System.Windows.Forms.TextBox Txt_Utility_Output_Path;
+        private System.Windows.Forms.Label Lbl_OutPut_Path;
+        private System.Windows.Forms.RadioButton Rd_Utility_Alter;
+        private System.Windows.Forms.RadioButton Rd_Utility_Create;
+        private System.Windows.Forms.Button Btn_Fix_Path_Browse;
+        private System.Windows.Forms.TextBox Txt_Fix_Path;
+        private System.Windows.Forms.Label Lbl_Fix_Path;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView dgv_Gen_Query_Log;
     }
 }
 

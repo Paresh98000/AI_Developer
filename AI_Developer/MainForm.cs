@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Drawing;
 using System.IO;
@@ -18,6 +19,8 @@ namespace AI_Developer
         bool IsLoggedIn = true;
         string ConfigurationFile = "ProgramConfig.xml";
         string MainConfigFile = "MainConfigs.xml";
+        string Utility_Output_File = "Utility_Output.txt";
+        string Fix_Path_Output = "Fix.txt";
         bool IsConfigured = false, IsInputPending = true, IsGenerateQueryPending = true, IsCheckFisibilityPending = true, IsProvidingFixPending = true, IsRollbackPending = true;
         List<DataSet> Tickets = new List<DataSet>();
 
@@ -31,6 +34,7 @@ namespace AI_Developer
         private DataTable tbl_Update;
         private DataTable tbl_Where;
         private DataTable tbl_Ticket;
+        private DataTable tbl_Gen_Query;
         private DataTable tbl_Check_Feasibility;
         private DataTable tbl_Save_Input;
         private List<string> variableList;
@@ -103,6 +107,8 @@ namespace AI_Developer
             tbl_Save_Input.Columns.Add("Column", "".GetType());
             tbl_Save_Input.Columns.Add("Value", "".GetType());
 
+            Txt_Utility_Output_Path.Text = Utility_Output_File;
+            Txt_Fix_Path.Text = Fix_Path_Output;
 
             // Check For Existing TicketData
             List<string> files_available = Directory.EnumerateFiles(".").ToList();
@@ -154,6 +160,8 @@ namespace AI_Developer
             tbl_field_update.Columns.Add("Column_List", "".GetType());
             tbl_field_update.Columns.Add("Value_List", "".GetType());
             tbl_field_update.Columns.Add("WhereFieldsId_List", "".GetType());
+            tbl_field_update.Columns.Add("IsInsert", true.GetType());
+            tbl_field_update.Columns.Add("IsDelete", true.GetType());
             DGV_Update_Fields_For_Fix.DataSource = tbl_field_update;
             DGV_Update_Fields_For_Fix.Columns[0].Width = 30;
 
@@ -171,6 +179,16 @@ namespace AI_Developer
             tbl_field_feasibility.Columns.Add("Condition", "".GetType());
             DGV_Check_Feasibility.DataSource = tbl_field_feasibility;
             DGV_Check_Feasibility.Columns[0].Width = 30;
+
+            DataTable tbl_GeneratedQueryLog = new DataTable();
+            tbl_GeneratedQueryLog.Columns.Add("Sr", 1.GetType());
+            tbl_GeneratedQueryLog.Columns.Add("TicketNo", "".GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Database_Id", 1.GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Fix_Query", "".GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Rollback_Query", "".GetType());
+            tbl_GeneratedQueryLog.Columns.Add("Fix_Given_At", "".GetType());
+            dgv_Gen_Query_Log.DataSource = tbl_GeneratedQueryLog;
+            dgv_Gen_Query_Log.Columns[0].Width = 30;
 
             if (File.Exists(MainConfigFile))
             {
@@ -294,15 +312,74 @@ namespace AI_Developer
                         Lbl_Status.Text = "Status : Input Sr." + tbl_Input.Rows[total_input_done][0];
 
                         if (variableList == null)
-                            variableList = tbl_Input.Rows[total_input_done]["Var_Name_List"].ToString().Split(',').ToList();
+                            variableList = new List<string>();
                         if (columnList == null)
-                            columnList = tbl_Input.Rows[total_input_done]["Column_List"].ToString().Split(',').ToList();
+                            columnList = new List<string>();
+                        //variableList = tbl_Input.Rows[total_input_done]["Var_Name_List"].ToString().Split(',').ToList();
+                        //columnList = tbl_Input.Rows[total_input_done]["Column_List"].ToString().Split(',').ToList();
+                        foreach (string s in tbl_Input.Rows[total_input_done]["Var_Name_List"].ToString().Split(','))
+                        {
+                            if (!variableList.Contains(s))
+                            {
+                                variableList.Add(s);
+
+                            }
+                        }
+                        foreach (string s in tbl_Input.Rows[total_input_done]["Column_List"].ToString().Split(','))
+                        {
+                            if (!columnList.Contains(s))
+                            {
+                                columnList.Add(s);
+                            }
+                        }
+
                         for (int i = 0; i < variableList.Count; i++)
                         {
                             Rtxt_Querybox.Text += "Declare @" + variableList[i] + " varchar = ''; -- " + columnList[i] + Environment.NewLine;
                         }
 
                         input_field_query = "Select " + tbl_Input.Rows[total_input_done]["Column_Display_List"] + " From " + tbl_Input.Rows[total_input_done]["Table"];
+
+                        string whereRecs = tbl_Input.Rows[total_input_done]["WhereFieldsId_List"].ToString();
+                        if (whereRecs.Trim().Length > 0)
+                        {
+                            DataRow[] rows = tbl_Where.Select("Sr in (" + whereRecs + ")");
+                            if (rows != null && rows.Length > 0)
+                            {
+                                input_field_query += " Where ";
+                            }
+                            for (int l = 0; l < rows.Length; l++)
+                            {
+                                if (rows[l][2].ToString().Contains("var"))
+                                {
+                                    if (variableList.Contains(rows[l][2]))
+                                    {
+                                        int ind = variableList.IndexOf(rows[l][2].ToString());
+                                        string colm = columnList[ind];
+                                        DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(total_input_done)} And Column = '{colm}'");
+                                        string str_values = "";
+                                        if (saveIn.Length > 0)
+                                            str_values = "'";
+                                        for (int j = 0; j < saveIn.Length; j++)
+                                        {
+                                            str_values += saveIn[j][3].ToString() + "','";
+                                        }
+                                        if (saveIn.Length > 0)
+                                            str_values = str_values.Substring(0, str_values.Length - 2);
+
+                                        input_field_query += rows[l][1] + " in (" + str_values + ") And ";
+                                    }
+                                }
+                                else
+                                {
+                                    input_field_query += rows[l][1] + " = '" + rows[l][2] + "' And ";
+                                }
+                            }
+                            if (rows != null && rows.Length > 0)
+                            {
+                                input_field_query = input_field_query.Substring(0, input_field_query.Length - 4);
+                            }
+                        }
                         dbData_Input = dbMain.GetData(input_field_query);
 
                         DataTable tbl_Filter = new DataTable("Tbl_Filter");
@@ -314,8 +391,12 @@ namespace AI_Developer
                             r[0] = item.ColumnName;
                             if (item.DataType == "".GetType())
                                 r[1] = "%";
-                            else
+                            else if (item.DataType == 1.GetType())
                                 r[1] = ">0";
+                            else if (item.DataType == (5.5).GetType())
+                                r[1] = ">0";
+                            else if (item.DataType == DateTime.Now.GetType())
+                                r[1] = "> '1900-1-1' ";
                             tbl_Filter.Rows.Add(r);
                         }
                         tbl_Filter.AcceptChanges();
@@ -354,6 +435,8 @@ namespace AI_Developer
 
         private void Btn_Gen_Query_Click(object sender, EventArgs e)
         {
+            DataTable tbl_gen_query = (DataTable)dgv_Gen_Query_Log.DataSource;
+            DataRow r = tbl_gen_query.NewRow();
             if (!IsGenerateQueryPending)
             {
                 // prepare queries
@@ -400,7 +483,7 @@ namespace AI_Developer
                         }
                         if (saveIn.Length > 0)
                             str_values = str_values.Substring(0, str_values.Length - 2);
-                        rollbackQuery[k] += " Set " + updateColList[l] + " = " + str_values+"";
+                        rollbackQuery[k] += " Set " + updateColList[l] + " = " + str_values + "";
                     }
 
                     updateQuery[k] = updateQuery[k].Substring(0, updateQuery[k].Length - 1);
@@ -421,9 +504,9 @@ namespace AI_Developer
                             {
                                 int ind = variableList.IndexOf(rows[l][2].ToString());
                                 string colm = columnList[ind];
-                                DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(k+1)} And Column = '{colm}'");
+                                DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(k + 1)} And Column = '{colm}'");
                                 string str_values = "";
-                                if(saveIn.Length>0)
+                                if (saveIn.Length > 0)
                                     str_values = "'";
                                 for (int j = 0; j < saveIn.Length; j++)
                                 {
@@ -450,8 +533,15 @@ namespace AI_Developer
                     Rtxt_Querybox.Text += Environment.NewLine + "-- Update";
                     Rtxt_Querybox.Text += Environment.NewLine + "--** Rollback Query";
                     Rtxt_Querybox.Text += Environment.NewLine + rollbackQuery[k] + Environment.NewLine;
+                    r["TicketNo"] = "";
+                    r["TicketNo"] = "";
+                    r["Fix_Query"] = "";
+                    r["Rollback_Query"] = "";
+                    r["Fix_Given_At"] = "";
                     Rtxt_Querybox.Text += Environment.NewLine + "--** Fix Query";
                     Rtxt_Querybox.Text += Environment.NewLine + updateQuery[k] + Environment.NewLine;
+
+                    
                 }
 
                 Btn_Gen_Query.Enabled = false;
@@ -472,23 +562,47 @@ namespace AI_Developer
                 for (int i = 0; i < total_input_done; i++)
                 {
                     queries[i] = "Select " + tbl_Input.Rows[i]["Column_Display_List"] + " From " + tbl_Input.Rows[i]["Table"];
-                    DataRow[] rows = tbl_Save_Input.Select("InputNo=" + (i + 1));
-                    if (rows.Length > 0)
-                        queries[i] += " Where ";
-                    for (int j = 0; j < rows.Length; j++)
-                    {
-                        queries[i] += rows[j][2] + " = '" + rows[j][3] + "' And ";
-                    }
-                    if (rows.Length > 0)
-                        queries[i] = queries[i].Substring(0, queries[i].Length - 4);
+                    //DataRow[] rows = tbl_Save_Input.Select("InputNo=" + (i + 1));
+                    //if (rows.Length > 0)
+                    //    queries[i] += " Where ";
+                    //for (int j = 0; j < rows.Length; j++)
+                    //{
+                    //    queries[i] += rows[j][2] + " = '" + rows[j][3] + "' And ";
+                    //}
+                    //if (rows.Length > 0)
+                    //    queries[i] = queries[i].Substring(0, queries[i].Length - 4);
 
                     // feasibility table
                     DataRow[] rows_f = tbl_Check_Feasibility.Select("Input_Rec_Id=" + (i + 1));
                     if (rows_f.Length > 0)
-                        queries[i] += " And ";
+                        queries[i] += " Where ";
                     for (int j = 0; j < rows_f.Length; j++)
                     {
-                        queries[i] += rows_f[j][2] + " " + rows_f[j][3] + " And ";
+                        if (rows_f[j][3].ToString().Contains("var"))
+                        {
+                            if (variableList.Contains(rows_f[j][3]))
+                            {
+                                int ind = variableList.IndexOf(rows_f[j][3].ToString());
+                                string colm = columnList[ind];
+                                DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(i + 1)} And Column = '{colm}'");
+                                string str_values = "";
+                                if (saveIn.Length > 0)
+                                    str_values = "'";
+                                for (int k = 0; k < saveIn.Length; k++)
+                                {
+                                    str_values += saveIn[k][3].ToString() + "','";
+                                }
+                                if (saveIn.Length > 0)
+                                    str_values = str_values.Substring(0, str_values.Length - 2);
+
+                                queries[i] += rows_f[j][2] + " in (" + str_values + ") And ";
+                            }
+                        }
+                        else
+                        {
+                            queries[i] += rows_f[j][2] + " " + rows_f[j][3] + " And ";
+                        }
+
                     }
                     if (rows_f.Length > 0)
                         queries[i] = queries[i].Substring(0, queries[i].Length - 4);
@@ -537,6 +651,103 @@ namespace AI_Developer
             }
         }
 
+        private void Btn_Utility_Backup_STP_All_Db_Click(object sender, EventArgs e)
+        {
+            DataTable data = (DataTable)DGV_Configuration.DataSource;
+            string inputdata = Txt_UtilityInputTxt.Text;
+            string all_db_data = "";
+            foreach (DataRow r in data.Rows)
+            {
+                
+                string constr = r["ConnectionString"].ToString();
+                string dbname = constr.Split(new string[] { "Initial Catalog=" }, StringSplitOptions.None)[1];
+                dbname = dbname.Split(';')[0];
+                all_db_data += Environment.NewLine + $"Use {dbname};" + Environment.NewLine;
+                string all_stp_data = "";
+                string folder_Path = Path.Combine(Path.GetDirectoryName(Utility_Output_File), dbname);
+                if (!Directory.Exists(folder_Path))
+                {
+                    Directory.CreateDirectory(folder_Path);
+                }
+                foreach (string inp in inputdata.Split('\n'))
+                {
+                    string stp_name = inp.Trim();
+                    string file_path = Path.Combine(folder_Path, stp_name);
+
+                    SqlConnection myConnection = new SqlConnection(constr);
+                    SqlCommand myCommand = new SqlCommand();
+                    SqlDataReader reader;
+                    myCommand.Connection = myConnection;
+                    myConnection.Open();
+                    myCommand.CommandText = $@"SELECT DISTINCT
+                                    o.name AS Object_Name,o.type_desc,m.definition
+                                    FROM sys.sql_modules        m
+                                        INNER JOIN sys.objects  o ON m.object_id=o.object_id
+                                        INNER JOIN sys.schemas  s ON o.schema_id=s.schema_id
+                                    WHERE o.name Like '{stp_name}'";
+                    reader = myCommand.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        DataTable t = new DataTable();
+                        for (int j = 0; j < reader.FieldCount; j++)
+                        {
+                            t.Columns.Add(reader.GetName(j), reader.GetFieldType(j));
+                        }
+                        while (reader.Read())
+                        {
+                            DataRow myRow = t.NewRow();
+                            for (int j = 0; j < reader.FieldCount; j++)
+                            {
+                                myRow[j] = reader.GetValue(j);
+                            }
+                            t.Rows.Add(myRow);
+                        }
+                        if (t.Rows.Count > 0)
+                        {
+                            string obj_data = "";
+                            if (Rd_Utility_Alter.Checked)
+                                obj_data = t.Rows[0][2].ToString().Replace("CREATE PROCEDURE [dbo].", "ALTER PROCEDURE [dbo].");
+                            else
+                                obj_data = t.Rows[0][2].ToString();
+                            File.WriteAllText(file_path + ".sql", obj_data);
+                            all_stp_data += Environment.NewLine + "Go" + Environment.NewLine + obj_data + Environment.NewLine + "Go" + Environment.NewLine;
+                        }
+                    }
+                    myConnection.Close();
+                }
+                File.WriteAllText(Path.Combine(folder_Path, "All Stps") + ".sql", all_stp_data);
+                all_db_data += all_stp_data;
+            }
+            File.WriteAllText(Utility_Output_File, all_db_data);
+            MessageBox.Show("Object Backup is stored.", "AI Developer");
+        }
+
+        private void Btn_Utility_Output_Path_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Application.StartupPath;
+            openFileDialog.Multiselect = false;
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Utility_Output_File = openFileDialog.FileName;
+                Txt_Utility_Output_Path.Text = Utility_Output_File;
+            }
+        }
+
+        private void Btn_Fix_Path_Browse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Application.StartupPath;
+            openFileDialog.Multiselect = false;
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Utility_Output_File = openFileDialog.FileName;
+                Txt_Fix_Path.Text = Utility_Output_File;
+            }
+        }
+
         private void DGV_Input_Filter_Cell_Validating(object sender, DataGridViewCellValidatingEventArgs e)
         {
 
@@ -563,9 +774,13 @@ namespace AI_Developer
                     input_field_where = input_field_where.Substring(0, input_field_where.Length - 4);
                     if (dbMain != null)
                     {
-                        DataTable tbl = dbData_Input.Select(input_field_where).CopyToDataTable();
-                        DGV_Input_Fix.DataSource = tbl;
-                        DGV_Input_Fix.Update();
+                        DataRow[] rr = dbData_Input.Select(input_field_where);
+                        if (rr.Length > 0)
+                        {
+                            DataTable tbl = rr.CopyToDataTable();
+                            DGV_Input_Fix.DataSource = tbl;
+                            DGV_Input_Fix.Update();
+                        }
                     }
                 }
             }
