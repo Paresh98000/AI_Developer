@@ -23,7 +23,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ProductName>Backup Utility</ProductName>
+    <PublisherName>Pareshkumar Sharma</PublisherName>
+    <SuiteName>AI Developer</SuiteName>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -121,6 +124,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="2002.i039.010_chatbot_messenger_ai_isometric_set-05.ico" />
+    <Content Include="ProgramConfigTstBuild.xml" />
+    <Content Include="ProgramConfigDevBuild.xml" />
+    <Content Include="Ref Dlls\PSBS_DB.dll" />
+    <Content Include="Ref Dlls\PSBS_Log.dll" />
+    <Content Include="Ref Dlls\System.Data.SQLite.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

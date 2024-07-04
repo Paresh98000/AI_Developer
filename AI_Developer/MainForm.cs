@@ -19,8 +19,6 @@ namespace AI_Developer
         bool IsLoggedIn = true;
         string ConfigurationFile = "ProgramConfig.xml";
         string MainConfigFile = "MainConfigs.xml";
-        string Utility_Output_File = "Utility_Output.txt";
-        string Fix_Path_Output = "Fix.txt";
         bool IsConfigured = false, IsInputPending = true, IsGenerateQueryPending = true, IsCheckFisibilityPending = true, IsProvidingFixPending = true, IsRollbackPending = true;
         List<DataSet> Tickets = new List<DataSet>();
 
@@ -56,7 +54,7 @@ namespace AI_Developer
             if (tb_main.SelectedIndex > 0 && !IsLoggedIn)
             {
                 tb_main.SelectedIndex = 0;
-                MessageBox.Show("Please login.", "Developer");
+                MessageBox.Show("Please login.", "AI Developer");
             }
 
         }
@@ -78,7 +76,9 @@ namespace AI_Developer
 
         private void Btn_Configure_Click(object sender, EventArgs e)
         {
-            DataTable data;
+            DataSet set = new DataSet("Configs");
+            DataTable data,data2;
+
             data = (DataTable)DGV_Configuration.DataSource;
             List<DataRow> emptyRows = new List<DataRow>();
             for (int i = 0; i < data.Rows.Count; i++)
@@ -91,11 +91,31 @@ namespace AI_Developer
                 data.Rows.Remove(emptyr);
             }
             data.AcceptChanges();
-            data.WriteXml(ConfigurationFile);
+
+            data2 = new DataTable("App_Config");
+
+            data2.Columns.Add("Sr.", typeof(int));
+            data2.Columns.Add("Tag", typeof(string));
+            data2.Columns.Add("Path", typeof(string));
+            data2.Columns.Add("Common_Path", typeof(string));
+
+            DataRow r = data2.NewRow();
+            r[0] = 1;
+            r[1] = "";
+            r[2] = txt_Config_App_Path.Text;
+            r[3] = Txt_Common_Output_Path.Text;
+            data2.Rows.Add(r);
+            data2.AcceptChanges();
+
+            set.Tables.Add(data.Copy());
+            set.Tables.Add(data2);
+            set.WriteXml(ConfigurationFile);
             DGV_Configuration.EditMode = DataGridViewEditMode.EditProgrammatically;
             Btn_Configure.Enabled = false;
             Btn_Modify.Enabled = true;
             IsConfigured = true;
+            txt_Config_App_Path.Enabled = false;
+            Txt_Common_Output_Path.Enabled = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -107,8 +127,6 @@ namespace AI_Developer
             tbl_Save_Input.Columns.Add("Column", "".GetType());
             tbl_Save_Input.Columns.Add("Value", "".GetType());
 
-            Txt_Utility_Output_Path.Text = Utility_Output_File;
-            Txt_Fix_Path.Text = Fix_Path_Output;
 
             // Check For Existing TicketData
             List<string> files_available = Directory.EnumerateFiles(".").ToList();
@@ -129,6 +147,21 @@ namespace AI_Developer
                 DataSet set = new DataSet();
                 set.ReadXml(ConfigurationFile);
                 DGV_Configuration.DataSource = set.Tables[0];
+                if (set.Tables.Count > 1)
+                {
+                    DataTable data2 = set.Tables[1];
+                    if (data2 != null && data2.Rows.Count>0)
+                    {
+                        DataRow r = data2.Rows[0];
+                        txt_Config_App_Path.Text = r[2].ToString();
+                        Txt_Common_Output_Path.Text = r[3].ToString();
+                        if (Txt_Common_Output_Path.Text.Trim().Length > 0)
+                        {
+                            Utility_Output_File = Txt_Common_Output_Path.Text;
+                            Txt_Utility_Output_Path.Text = Utility_Output_File;
+                        }
+                    }
+                }
             }
             else
             {
@@ -138,6 +171,7 @@ namespace AI_Developer
                 tbl.Columns.Add("PlantName", "".GetType());
                 tbl.Columns.Add("PlantCode", "".GetType());
                 tbl.Columns.Add("ConnectionString", "".GetType());
+                tbl.Columns.Add("Tags", "".GetType());
                 DGV_Configuration.DataSource = tbl;
                 DGV_Configuration.Columns[0].Width = 30;
             }
@@ -208,11 +242,15 @@ namespace AI_Developer
             {
                 DGV_Configuration.EditMode = DataGridViewEditMode.EditProgrammatically;
                 Btn_Configure.Enabled = false;
+                txt_Config_App_Path.Enabled = false;
+                Txt_Common_Output_Path.Enabled = false;
             }
             else
             {
                 DGV_Configuration.EditMode = DataGridViewEditMode.EditOnKeystroke;
                 Btn_Modify.Enabled = false;
+                txt_Config_App_Path.Enabled = true;
+                Txt_Common_Output_Path.Enabled = true;
             }
         }
 
@@ -227,6 +265,8 @@ namespace AI_Developer
             Btn_Modify.Enabled = false;
             Btn_Configure.Enabled = true;
             IsConfigured = false;
+            txt_Config_App_Path.Enabled = true;
+            Txt_Common_Output_Path.Enabled = true;
         }
 
         private void OnFormCloseing(object sender, FormClosedEventArgs e)
@@ -472,8 +512,42 @@ namespace AI_Developer
 
                     for (int l = 0; l < updateColList.Count; l++)
                     {
-                        updateQuery[k] += " Set " + updateColList[l] + " = '" + updateValList[l] + "',";
-                        DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(k + 1)} And Column = '{updateColList[l]}'");
+                        string setValue = "";
+                        if (updateValList[l].Contains("var") || updateValList[l].Contains("Var"))
+                        {
+                            if (variableList.Contains(updateValList[l]))
+                            {
+                                int ind = variableList.IndexOf(updateValList[l].ToString());
+                                string colm = columnList[ind];
+                                string temp_C = "0";
+                                temp_C = tbl_Input.Select($"Var_Name_List like '%{updateValList[l]}%'")[0][0].ToString();
+
+                                DataRow[] saveIn_c = tbl_Save_Input.Select($"InputNo={(temp_C)} And Column = '{colm}'");
+                                string str_values_c = "";
+                                if (saveIn_c.Length > 0)
+                                    str_values_c = "";
+                                for (int j = 0; j < saveIn_c.Length; j++)
+                                {
+                                    str_values_c += saveIn_c[j][3].ToString() + ",'";
+                                }
+                                if (saveIn_c.Length > 0)
+                                    str_values_c = str_values_c.Substring(0, str_values_c.Length - 2);
+
+                                setValue = str_values_c;
+                            }
+                        }
+                        else
+                            setValue = updateValList[l];
+
+                        if (updateQuery[k].Contains("Set"))
+                            updateQuery[k] += updateColList[l] + " = '" + setValue + "', ";
+                        else
+                            updateQuery[k] += " Set " + updateColList[l] + " = '" + setValue + "', ";
+
+                        string temp_k = "0";
+                        temp_k = tbl_Input.Select($"Var_Name_List like '%{updateValList[l]}%'")[0][0].ToString();
+
+                        DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(temp_k)} And Column = '{updateColList[l]}'");
                         string str_values = "";
                         if (saveIn.Length > 0)
                             str_values = "'";
@@ -483,10 +557,16 @@ namespace AI_Developer
                         }
                         if (saveIn.Length > 0)
                             str_values = str_values.Substring(0, str_values.Length - 2);
-                        rollbackQuery[k] += " Set " + updateColList[l] + " = " + str_values + "";
+
+                        if (rollbackQuery[k].Contains("Set"))
+                            rollbackQuery[k] += updateColList[l] + " = " + str_values + ", ";
+                        else
+                            rollbackQuery[k] += " Set " + updateColList[l] + " = " + str_values + ", ";
+
                     }
 
-                    updateQuery[k] = updateQuery[k].Substring(0, updateQuery[k].Length - 1);
+                    updateQuery[k] = updateQuery[k].Substring(0, updateQuery[k].Length - 2);
+                    rollbackQuery[k] = rollbackQuery[k].Substring(0, rollbackQuery[k].Length - 2);
 
                     //where fields
                     string whereRecs = tbl_Update.Rows[k]["WhereFieldsId_List"].ToString();
@@ -504,7 +584,10 @@ namespace AI_Developer
                             {
                                 int ind = variableList.IndexOf(rows[l][2].ToString());
                                 string colm = columnList[ind];
-                                DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(k + 1)} And Column = '{colm}'");
+                                string temp_k = "0";
+                                temp_k = tbl_Input.Select($"Var_Name_List like '%{rows[l][2]}%'")[0][0].ToString();
+
+                                DataRow[] saveIn = tbl_Save_Input.Select($"InputNo={(temp_k)} And Column = '{colm}'");
                                 string str_values = "";
                                 if (saveIn.Length > 0)
                                     str_values = "'";
@@ -664,7 +747,7 @@ namespace AI_Developer
                 dbname = dbname.Split(';')[0];
                 all_db_data += Environment.NewLine + $"Use {dbname};" + Environment.NewLine;
                 string all_stp_data = "";
-                string folder_Path = Path.Combine(Path.GetDirectoryName(Utility_Output_File), dbname);
+                string folder_Path = Path.Combine(Path.GetDirectoryName(Utility_Output_File),"DB", dbname);
                 if (!Directory.Exists(folder_Path))
                 {
                     Directory.CreateDirectory(folder_Path);
@@ -724,6 +807,17 @@ namespace AI_Developer
 
         private void Btn_Utility_Output_Path_Click(object sender, EventArgs e)
         {
+            FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Utility_Output_File = Path.Combine(openFileDialog.SelectedPath,"All_Object_Combined.sql");
+                Txt_Utility_Output_Path.Text = Utility_Output_File;
+            }
+        }
+
+        private void Btn_Fix_Path_Browse_Click(object sender, EventArgs e)
+        {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Application.StartupPath;
             openFileDialog.Multiselect = false;
@@ -731,8 +825,63 @@ namespace AI_Developer
             if (result == DialogResult.OK)
             {
                 Utility_Output_File = openFileDialog.FileName;
-                Txt_Utility_Output_Path.Text = Utility_Output_File;
             }
+        }
+
+        private void Btn_Utility_Backup_App_Click(object sender, EventArgs e)
+        {
+            string path = txt_Config_App_Path.Text;
+            if (path.Trim().Length == 0)
+            {
+                MessageBox.Show("Invalid application path.");
+                return;
+            }
+
+            if (!Directory.Exists(path))
+            {
+                MessageBox.Show("Directory not exists."+Environment.NewLine+path);
+                return;
+            }
+
+            string files_list = txt_utility_app_backup.Text;
+
+            if (files_list.Trim().Length == 0)
+            {
+                MessageBox.Show("Please enter valid file names in application backup.");
+                return;
+            }
+
+            string errors = "Below files not exists.",full_path = "",output_path="",new_output_dir="";
+            errors += Environment.NewLine;
+            string output_dir = Path.GetDirectoryName(Utility_Output_File);
+            if (output_dir.Trim().Length == 0) { output_dir = "."; }
+            foreach(string f_name in files_list.Split('\n'))
+            {
+                if (f_name.Trim().Length > 0)
+                {
+                    full_path = Path.Combine(path, f_name.Trim());
+                    output_path = Path.Combine(output_dir,"App", f_name.Trim());
+                    new_output_dir = Path.GetDirectoryName(output_path);
+                    if (!File.Exists(full_path))
+                    {
+                        errors += full_path + Environment.NewLine;
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(new_output_dir))
+                        {
+                            Directory.CreateDirectory(new_output_dir);
+                        }
+                        File.Copy(full_path, output_path,true);
+                    }
+                }
+            }
+            MessageBox.Show("Application backup done.");
+        }
+
+        private void Txt_Utility_Output_Path_Changed(object sender, EventArgs e)
+        {
+            Utility_Output_File = Txt_Utility_Output_Path.Text;
         }
 
         private void Btn_Fix_Path_Browse_Click(object sender, EventArgs e)

@@ -1,0 +1,67 @@
+<?xml version="1.0" standalone="yes"?>
+<MR-EX070230013>
+  <TicketDetails>
+    <No>MR-EX070230013</No>
+    <Desc>PM Caliberation record is not generated</Desc>
+    <CA>Update the schedule dates and cnt1</CA>
+  </TicketDetails>
+  <InputField_Fix>
+    <Sr>1</Sr>
+    <DatabaseConn>3</DatabaseConn>
+    <Table>LMS_INS_INS_MAST</Table>
+    <Column_Display_List>LMS_INS_INS_CODE,LMS_INS_INS_ID,LMS_INS_INS_UCODE,LMS_INS_INS_UCODE</Column_Display_List>
+    <Column_List>LMS_INS_INS_ID,LMS_INS_INS_CODE</Column_List>
+    <Var_Name_List>var1,var0</Var_Name_List>
+    <WhereFieldsId_List>3</WhereFieldsId_List>
+  </InputField_Fix>
+  <InputField_Fix>
+    <Sr>2</Sr>
+    <DatabaseConn>3</DatabaseConn>
+    <Table>LMS_INS_SCH_AUL</Table>
+    <Column_Display_List>LMS_INS_SCH_Ucode,LMS_INS_SCH_ID,LMS_INS_INS_CODE,LMS_INS_SCH_SDATE,LMS_INS_SCH_SDATE1,LMS_INS_SCH_NXT_DATE,LMS_INS_SCH_NXT_DATE1,LMS_INS_SCH_CNT,LMS_INS_SCH_CNT1</Column_Display_List>
+    <Column_List>LMS_INS_SCH_ID,LMS_INS_SCH_SDATE,LMS_INS_SCH_NXT_DATE</Column_List>
+    <Var_Name_List>var2,var3,var4</Var_Name_List>
+    <WhereFieldsId_List>2</WhereFieldsId_List>
+  </InputField_Fix>
+  <UpdateField_Fix>
+    <Sr>1</Sr>
+    <DatabaseConn>3</DatabaseConn>
+    <Table>LMS_INS_SCH_AUL</Table>
+    <Column_List>LMS_INS_SCH_SDATE1,LMS_INS_SCH_NXT_DATE1</Column_List>
+    <Value_List>var3,var4</Value_List>
+    <WhereFieldsId_List>1</WhereFieldsId_List>
+  </UpdateField_Fix>
+  <WhereField_Fix>
+    <Sr>1</Sr>
+    <Column_Name>LMS_INS_SCH_ID</Column_Name>
+    <Value>var2</Value>
+  </WhereField_Fix>
+  <WhereField_Fix>
+    <Sr>2</Sr>
+    <Column_Name>LMS_INS_INS_CODE</Column_Name>
+    <Value>var0</Value>
+  </WhereField_Fix>
+  <WhereField_Fix>
+    <Sr>3</Sr>
+    <Column_Name>LMS_INS_INS_CODE</Column_Name>
+    <Value>55</Value>
+  </WhereField_Fix>
+  <Check_Feasibility>
+    <Sr>1</Sr>
+    <Input_Rec_Id>2</Input_Rec_Id>
+    <Column>LMS_INS_SCH_SDATE1</Column>
+    <Condition>!=LMS_INS_SCH_SDATE</Condition>
+  </Check_Feasibility>
+  <Check_Feasibility>
+    <Sr>2</Sr>
+    <Input_Rec_Id>2</Input_Rec_Id>
+    <Column>LMS_INS_SCH_NXT_DATE1</Column>
+    <Condition>!=LMS_INS_SCH_NXT_DATE</Condition>
+  </Check_Feasibility>
+  <Check_Feasibility>
+    <Sr>3</Sr>
+    <Input_Rec_Id>2</Input_Rec_Id>
+    <Column>LMS_INS_SCH_ID</Column>
+    <Condition>var2</Condition>
+  </Check_Feasibility>
+</MR-EX070230013>

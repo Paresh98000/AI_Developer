@@ -37,24 +37,45 @@ namespace AI_Developer
             this.txt_Password = new System.Windows.Forms.TextBox();
             this.txt_Username = new System.Windows.Forms.MaskedTextBox();
             this.tb_Configure = new System.Windows.Forms.TabPage();
-            this.Btn_Fix_Path_Browse = new System.Windows.Forms.Button();
-            this.Txt_Fix_Path = new System.Windows.Forms.TextBox();
-            this.Lbl_Fix_Path = new System.Windows.Forms.Label();
+            this.tb_Config = new System.Windows.Forms.TabControl();
+            this.tab_config_db = new System.Windows.Forms.TabPage();
+            this.DGV_Configuration = new System.Windows.Forms.DataGridView();
+            this.tab_Config_App = new System.Windows.Forms.TabPage();
+            this.lbl_Config_app = new System.Windows.Forms.Label();
+            this.txt_Config_App_Path = new System.Windows.Forms.TextBox();
             this.Btn_Modify = new System.Windows.Forms.Button();
             this.Btn_Configure = new System.Windows.Forms.Button();
             this.lbl_info_configure = new System.Windows.Forms.Label();
-            this.DGV_Configuration = new System.Windows.Forms.DataGridView();
             this.tb_Utility = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.Rd_Utility_Alter = new System.Windows.Forms.RadioButton();
             this.Rd_Utility_Create = new System.Windows.Forms.RadioButton();
             this.Btn_Utility_Output_Path = new System.Windows.Forms.Button();
             this.Txt_Utility_Output_Path = new System.Windows.Forms.TextBox();
             this.Lbl_OutPut_Path = new System.Windows.Forms.Label();
+            this.txt_utility_app_backup = new System.Windows.Forms.TextBox();
             this.Txt_UtilityInputTxt = new System.Windows.Forms.TextBox();
+            this.Btn_Utility_Backup_App = new System.Windows.Forms.Button();
             this.Btn_Utility_Backup_STP_All_Db = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tb_ca_fix = new System.Windows.Forms.TabControl();
             this.tb_Add_Fix = new System.Windows.Forms.TabPage();
+            this.Tab_Input = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.DGV_Input_For_Fix = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.DGV_Update_Fields_For_Fix = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.DGV_Where_Field_For_Fix = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.DGV_Check_Feasibility = new System.Windows.Forms.DataGridView();
+            this.label12 = new System.Windows.Forms.Label();
             this.Cmb_Tickets = new System.Windows.Forms.ComboBox();
             this.Chk_Modify = new System.Windows.Forms.CheckBox();
             this.Txt_Ticket_CA = new System.Windows.Forms.TextBox();
@@ -64,14 +85,6 @@ namespace AI_Developer
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_Save_ticket_ca = new System.Windows.Forms.Button();
-            this.DGV_Check_Feasibility = new System.Windows.Forms.DataGridView();
-            this.label12 = new System.Windows.Forms.Label();
-            this.DGV_Where_Field_For_Fix = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.DGV_Update_Fields_For_Fix = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.DGV_Input_For_Fix = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.tb_Execute = new System.Windows.Forms.TabPage();
             this.DGV_Input_Filter = new System.Windows.Forms.DataGridView();
             this.DGV_Input_Fix = new System.Windows.Forms.DataGridView();
@@ -93,18 +106,28 @@ namespace AI_Developer
             this.Cmb_Ticket_ProvidingFix = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dgv_Gen_Query_Log = new System.Windows.Forms.DataGridView();
+            this.Txt_Common_Output_Path = new System.Windows.Forms.TextBox();
+            this.Lbl_Common_Output_Path = new System.Windows.Forms.Label();
             this.tb_main.SuspendLayout();
             this.tb_Login.SuspendLayout();
             this.tb_Configure.SuspendLayout();
+            this.tb_Config.SuspendLayout();
+            this.tab_config_db.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Configuration)).BeginInit();
+            this.tab_Config_App.SuspendLayout();
             this.tb_Utility.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tb_ca_fix.SuspendLayout();
             this.tb_Add_Fix.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Check_Feasibility)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Where_Field_For_Fix)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Update_Fields_For_Fix)).BeginInit();
+            this.Tab_Input.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_For_Fix)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_Update_Fields_For_Fix)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_Where_Field_For_Fix)).BeginInit();
+            this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_Check_Feasibility)).BeginInit();
             this.tb_Execute.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Fix)).BeginInit();
@@ -122,7 +145,7 @@ namespace AI_Developer
             this.tb_main.Location = new System.Drawing.Point(0, 0);
             this.tb_main.Name = "tb_main";
             this.tb_main.SelectedIndex = 0;
-            this.tb_main.Size = new System.Drawing.Size(657, 660);
+            this.tb_main.Size = new System.Drawing.Size(764, 654);
             this.tb_main.TabIndex = 0;
             this.tb_main.SelectedIndexChanged += new System.EventHandler(this.OnMainTabSelectionChanged);
             // 
@@ -135,7 +158,7 @@ namespace AI_Developer
             this.tb_Login.Location = new System.Drawing.Point(4, 22);
             this.tb_Login.Name = "tb_Login";
             this.tb_Login.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Login.Size = new System.Drawing.Size(649, 634);
+            this.tb_Login.Size = new System.Drawing.Size(756, 628);
             this.tb_Login.TabIndex = 0;
             this.tb_Login.Text = "Log In";
             this.tb_Login.UseVisualStyleBackColor = true;
@@ -179,46 +202,16 @@ namespace AI_Developer
             // 
             // tb_Configure
             // 
-            this.tb_Configure.Controls.Add(this.Btn_Fix_Path_Browse);
-            this.tb_Configure.Controls.Add(this.Txt_Fix_Path);
-            this.tb_Configure.Controls.Add(this.Lbl_Fix_Path);
             this.tb_Configure.Controls.Add(this.Btn_Modify);
             this.tb_Configure.Controls.Add(this.Btn_Configure);
             this.tb_Configure.Controls.Add(this.lbl_info_configure);
-            this.tb_Configure.Controls.Add(this.DGV_Configuration);
             this.tb_Configure.Location = new System.Drawing.Point(4, 22);
             this.tb_Configure.Name = "tb_Configure";
             this.tb_Configure.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Configure.Size = new System.Drawing.Size(649, 634);
+            this.tb_Configure.Size = new System.Drawing.Size(649, 779);
             this.tb_Configure.TabIndex = 1;
             this.tb_Configure.Text = "Configure";
             this.tb_Configure.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Fix_Path_Browse
-            // 
-            this.Btn_Fix_Path_Browse.Location = new System.Drawing.Point(341, 80);
-            this.Btn_Fix_Path_Browse.Name = "Btn_Fix_Path_Browse";
-            this.Btn_Fix_Path_Browse.Size = new System.Drawing.Size(75, 23);
-            this.Btn_Fix_Path_Browse.TabIndex = 7;
-            this.Btn_Fix_Path_Browse.Text = "Browse";
-            this.Btn_Fix_Path_Browse.UseVisualStyleBackColor = true;
-            this.Btn_Fix_Path_Browse.Click += new System.EventHandler(this.Btn_Fix_Path_Browse_Click);
-            // 
-            // Txt_Fix_Path
-            // 
-            this.Txt_Fix_Path.Location = new System.Drawing.Point(90, 82);
-            this.Txt_Fix_Path.Name = "Txt_Fix_Path";
-            this.Txt_Fix_Path.Size = new System.Drawing.Size(245, 20);
-            this.Txt_Fix_Path.TabIndex = 6;
-            // 
-            // Lbl_Fix_Path
-            // 
-            this.Lbl_Fix_Path.AutoSize = true;
-            this.Lbl_Fix_Path.Location = new System.Drawing.Point(11, 85);
-            this.Lbl_Fix_Path.Name = "Lbl_Fix_Path";
-            this.Lbl_Fix_Path.Size = new System.Drawing.Size(54, 13);
-            this.Lbl_Fix_Path.TabIndex = 5;
-            this.Lbl_Fix_Path.Text = "Fix Path : ";
             // 
             // Btn_Modify
             // 
@@ -258,7 +251,7 @@ namespace AI_Developer
             this.DGV_Configuration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Configuration.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.DGV_Configuration.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.DGV_Configuration.Location = new System.Drawing.Point(3, 135);
+            this.DGV_Configuration.Location = new System.Drawing.Point(3, 280);
             this.DGV_Configuration.Name = "DGV_Configuration";
             this.DGV_Configuration.Size = new System.Drawing.Size(643, 496);
             this.DGV_Configuration.TabIndex = 3;
@@ -266,86 +259,13 @@ namespace AI_Developer
             // 
             // tb_Utility
             // 
-            this.tb_Utility.Controls.Add(this.Rd_Utility_Alter);
-            this.tb_Utility.Controls.Add(this.Rd_Utility_Create);
-            this.tb_Utility.Controls.Add(this.Btn_Utility_Output_Path);
-            this.tb_Utility.Controls.Add(this.Txt_Utility_Output_Path);
-            this.tb_Utility.Controls.Add(this.Lbl_OutPut_Path);
-            this.tb_Utility.Controls.Add(this.Txt_UtilityInputTxt);
-            this.tb_Utility.Controls.Add(this.Btn_Utility_Backup_STP_All_Db);
             this.tb_Utility.Location = new System.Drawing.Point(4, 22);
             this.tb_Utility.Name = "tb_Utility";
             this.tb_Utility.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Utility.Size = new System.Drawing.Size(649, 634);
+            this.tb_Utility.Size = new System.Drawing.Size(649, 779);
             this.tb_Utility.TabIndex = 2;
             this.tb_Utility.Text = "Utility";
             this.tb_Utility.UseVisualStyleBackColor = true;
-            // 
-            // Rd_Utility_Alter
-            // 
-            this.Rd_Utility_Alter.AutoSize = true;
-            this.Rd_Utility_Alter.Location = new System.Drawing.Point(402, 35);
-            this.Rd_Utility_Alter.Name = "Rd_Utility_Alter";
-            this.Rd_Utility_Alter.Size = new System.Drawing.Size(46, 17);
-            this.Rd_Utility_Alter.TabIndex = 5;
-            this.Rd_Utility_Alter.TabStop = true;
-            this.Rd_Utility_Alter.Text = "Alter";
-            this.Rd_Utility_Alter.UseVisualStyleBackColor = true;
-            // 
-            // Rd_Utility_Create
-            // 
-            this.Rd_Utility_Create.AutoSize = true;
-            this.Rd_Utility_Create.Location = new System.Drawing.Point(340, 36);
-            this.Rd_Utility_Create.Name = "Rd_Utility_Create";
-            this.Rd_Utility_Create.Size = new System.Drawing.Size(56, 17);
-            this.Rd_Utility_Create.TabIndex = 5;
-            this.Rd_Utility_Create.TabStop = true;
-            this.Rd_Utility_Create.Text = "Create";
-            this.Rd_Utility_Create.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Utility_Output_Path
-            // 
-            this.Btn_Utility_Output_Path.Location = new System.Drawing.Point(339, 135);
-            this.Btn_Utility_Output_Path.Name = "Btn_Utility_Output_Path";
-            this.Btn_Utility_Output_Path.Size = new System.Drawing.Size(75, 23);
-            this.Btn_Utility_Output_Path.TabIndex = 4;
-            this.Btn_Utility_Output_Path.Text = "Browse";
-            this.Btn_Utility_Output_Path.UseVisualStyleBackColor = true;
-            this.Btn_Utility_Output_Path.Click += new System.EventHandler(this.Btn_Utility_Output_Path_Click);
-            // 
-            // Txt_Utility_Output_Path
-            // 
-            this.Txt_Utility_Output_Path.Location = new System.Drawing.Point(88, 137);
-            this.Txt_Utility_Output_Path.Name = "Txt_Utility_Output_Path";
-            this.Txt_Utility_Output_Path.Size = new System.Drawing.Size(245, 20);
-            this.Txt_Utility_Output_Path.TabIndex = 3;
-            // 
-            // Lbl_OutPut_Path
-            // 
-            this.Lbl_OutPut_Path.AutoSize = true;
-            this.Lbl_OutPut_Path.Location = new System.Drawing.Point(9, 140);
-            this.Lbl_OutPut_Path.Name = "Lbl_OutPut_Path";
-            this.Lbl_OutPut_Path.Size = new System.Drawing.Size(73, 13);
-            this.Lbl_OutPut_Path.TabIndex = 2;
-            this.Lbl_OutPut_Path.Text = "Output Path : ";
-            // 
-            // Txt_UtilityInputTxt
-            // 
-            this.Txt_UtilityInputTxt.Location = new System.Drawing.Point(9, 7);
-            this.Txt_UtilityInputTxt.Multiline = true;
-            this.Txt_UtilityInputTxt.Name = "Txt_UtilityInputTxt";
-            this.Txt_UtilityInputTxt.Size = new System.Drawing.Size(324, 126);
-            this.Txt_UtilityInputTxt.TabIndex = 1;
-            // 
-            // Btn_Utility_Backup_STP_All_Db
-            // 
-            this.Btn_Utility_Backup_STP_All_Db.Location = new System.Drawing.Point(339, 6);
-            this.Btn_Utility_Backup_STP_All_Db.Name = "Btn_Utility_Backup_STP_All_Db";
-            this.Btn_Utility_Backup_STP_All_Db.Size = new System.Drawing.Size(302, 23);
-            this.Btn_Utility_Backup_STP_All_Db.TabIndex = 0;
-            this.Btn_Utility_Backup_STP_All_Db.Text = "Take STP Backup From All Databases";
-            this.Btn_Utility_Backup_STP_All_Db.UseVisualStyleBackColor = true;
-            this.Btn_Utility_Backup_STP_All_Db.Click += new System.EventHandler(this.Btn_Utility_Backup_STP_All_Db_Click);
             // 
             // tabPage1
             // 
@@ -353,7 +273,7 @@ namespace AI_Developer
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(649, 634);
+            this.tabPage1.Size = new System.Drawing.Size(756, 628);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "CA Fixes";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -367,12 +287,13 @@ namespace AI_Developer
             this.tb_ca_fix.Location = new System.Drawing.Point(3, 3);
             this.tb_ca_fix.Name = "tb_ca_fix";
             this.tb_ca_fix.SelectedIndex = 0;
-            this.tb_ca_fix.Size = new System.Drawing.Size(643, 628);
+            this.tb_ca_fix.Size = new System.Drawing.Size(750, 622);
             this.tb_ca_fix.TabIndex = 0;
             // 
             // tb_Add_Fix
             // 
             this.tb_Add_Fix.AutoScroll = true;
+            this.tb_Add_Fix.Controls.Add(this.Tab_Input);
             this.tb_Add_Fix.Controls.Add(this.Cmb_Tickets);
             this.tb_Add_Fix.Controls.Add(this.Chk_Modify);
             this.tb_Add_Fix.Controls.Add(this.Txt_Ticket_CA);
@@ -382,21 +303,187 @@ namespace AI_Developer
             this.tb_Add_Fix.Controls.Add(this.label5);
             this.tb_Add_Fix.Controls.Add(this.label4);
             this.tb_Add_Fix.Controls.Add(this.btn_Save_ticket_ca);
-            this.tb_Add_Fix.Controls.Add(this.DGV_Check_Feasibility);
-            this.tb_Add_Fix.Controls.Add(this.label12);
-            this.tb_Add_Fix.Controls.Add(this.DGV_Where_Field_For_Fix);
-            this.tb_Add_Fix.Controls.Add(this.label3);
-            this.tb_Add_Fix.Controls.Add(this.DGV_Update_Fields_For_Fix);
-            this.tb_Add_Fix.Controls.Add(this.label2);
-            this.tb_Add_Fix.Controls.Add(this.DGV_Input_For_Fix);
-            this.tb_Add_Fix.Controls.Add(this.label1);
             this.tb_Add_Fix.Location = new System.Drawing.Point(4, 22);
             this.tb_Add_Fix.Name = "tb_Add_Fix";
             this.tb_Add_Fix.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Add_Fix.Size = new System.Drawing.Size(635, 602);
+            this.tb_Add_Fix.Size = new System.Drawing.Size(742, 596);
             this.tb_Add_Fix.TabIndex = 0;
             this.tb_Add_Fix.Text = "Add";
             this.tb_Add_Fix.UseVisualStyleBackColor = true;
+            // 
+            // Tab_Input
+            // 
+            this.Tab_Input.Controls.Add(this.tabPage3);
+            this.Tab_Input.Controls.Add(this.tabPage4);
+            this.Tab_Input.Controls.Add(this.tabPage5);
+            this.Tab_Input.Controls.Add(this.tabPage6);
+            this.Tab_Input.Controls.Add(this.tabPage7);
+            this.Tab_Input.Controls.Add(this.tabPage8);
+            this.Tab_Input.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Tab_Input.Location = new System.Drawing.Point(3, 119);
+            this.Tab_Input.Margin = new System.Windows.Forms.Padding(2);
+            this.Tab_Input.Name = "Tab_Input";
+            this.Tab_Input.SelectedIndex = 0;
+            this.Tab_Input.Size = new System.Drawing.Size(736, 474);
+            this.Tab_Input.TabIndex = 16;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.DGV_Input_For_Fix);
+            this.tabPage3.Controls.Add(this.label1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage3.Size = new System.Drawing.Size(728, 448);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Input";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // DGV_Input_For_Fix
+            // 
+            this.DGV_Input_For_Fix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV_Input_For_Fix.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DGV_Input_For_Fix.Location = new System.Drawing.Point(2, 31);
+            this.DGV_Input_For_Fix.Name = "DGV_Input_For_Fix";
+            this.DGV_Input_For_Fix.RowHeadersWidth = 51;
+            this.DGV_Input_For_Fix.Size = new System.Drawing.Size(724, 415);
+            this.DGV_Input_For_Fix.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(5, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 20);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Input Fields :";
+            this.label1.UseCompatibleTextRendering = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.DGV_Update_Fields_For_Fix);
+            this.tabPage4.Controls.Add(this.label2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage4.Size = new System.Drawing.Size(728, 448);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Update";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // DGV_Update_Fields_For_Fix
+            // 
+            this.DGV_Update_Fields_For_Fix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV_Update_Fields_For_Fix.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DGV_Update_Fields_For_Fix.Location = new System.Drawing.Point(2, 127);
+            this.DGV_Update_Fields_For_Fix.Name = "DGV_Update_Fields_For_Fix";
+            this.DGV_Update_Fields_For_Fix.RowHeadersWidth = 51;
+            this.DGV_Update_Fields_For_Fix.Size = new System.Drawing.Size(724, 319);
+            this.DGV_Update_Fields_For_Fix.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(5, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 20);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Update Fieds :";
+            this.label2.UseCompatibleTextRendering = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage5.Size = new System.Drawing.Size(728, 448);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "Insert";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage6.Size = new System.Drawing.Size(728, 448);
+            this.tabPage6.TabIndex = 3;
+            this.tabPage6.Text = "Delete";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.DGV_Where_Field_For_Fix);
+            this.tabPage7.Controls.Add(this.label3);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage7.Size = new System.Drawing.Size(728, 448);
+            this.tabPage7.TabIndex = 4;
+            this.tabPage7.Text = "Where";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // DGV_Where_Field_For_Fix
+            // 
+            this.DGV_Where_Field_For_Fix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV_Where_Field_For_Fix.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DGV_Where_Field_For_Fix.Location = new System.Drawing.Point(2, 127);
+            this.DGV_Where_Field_For_Fix.Name = "DGV_Where_Field_For_Fix";
+            this.DGV_Where_Field_For_Fix.RowHeadersWidth = 51;
+            this.DGV_Where_Field_For_Fix.Size = new System.Drawing.Size(724, 319);
+            this.DGV_Where_Field_For_Fix.TabIndex = 14;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 20);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Where Fields :";
+            this.label3.UseCompatibleTextRendering = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.DGV_Check_Feasibility);
+            this.tabPage8.Controls.Add(this.label12);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage8.Size = new System.Drawing.Size(728, 448);
+            this.tabPage8.TabIndex = 5;
+            this.tabPage8.Text = "CA Fix Feasibility";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // DGV_Check_Feasibility
+            // 
+            this.DGV_Check_Feasibility.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV_Check_Feasibility.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DGV_Check_Feasibility.Location = new System.Drawing.Point(2, 127);
+            this.DGV_Check_Feasibility.Name = "DGV_Check_Feasibility";
+            this.DGV_Check_Feasibility.RowHeadersWidth = 51;
+            this.DGV_Check_Feasibility.Size = new System.Drawing.Size(724, 319);
+            this.DGV_Check_Feasibility.TabIndex = 14;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(5, 8);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(225, 20);
+            this.label12.TabIndex = 13;
+            this.label12.Text = "Corrective Action Feasibility Check :";
+            this.label12.UseCompatibleTextRendering = true;
             // 
             // Cmb_Tickets
             // 
@@ -469,89 +556,13 @@ namespace AI_Developer
             // 
             // btn_Save_ticket_ca
             // 
-            this.btn_Save_ticket_ca.Location = new System.Drawing.Point(6, 559);
+            this.btn_Save_ticket_ca.Location = new System.Drawing.Point(310, 5);
             this.btn_Save_ticket_ca.Name = "btn_Save_ticket_ca";
             this.btn_Save_ticket_ca.Size = new System.Drawing.Size(75, 23);
             this.btn_Save_ticket_ca.TabIndex = 15;
             this.btn_Save_ticket_ca.Text = "Save";
             this.btn_Save_ticket_ca.UseVisualStyleBackColor = true;
             this.btn_Save_ticket_ca.Click += new System.EventHandler(this.btn_Save_ticket_ca_Click);
-            // 
-            // DGV_Check_Feasibility
-            // 
-            this.DGV_Check_Feasibility.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_Check_Feasibility.Location = new System.Drawing.Point(6, 473);
-            this.DGV_Check_Feasibility.Name = "DGV_Check_Feasibility";
-            this.DGV_Check_Feasibility.Size = new System.Drawing.Size(623, 80);
-            this.DGV_Check_Feasibility.TabIndex = 14;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(6, 450);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(225, 20);
-            this.label12.TabIndex = 13;
-            this.label12.Text = "Corrective Action Feasibility Check :";
-            this.label12.UseCompatibleTextRendering = true;
-            // 
-            // DGV_Where_Field_For_Fix
-            // 
-            this.DGV_Where_Field_For_Fix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_Where_Field_For_Fix.Location = new System.Drawing.Point(6, 367);
-            this.DGV_Where_Field_For_Fix.Name = "DGV_Where_Field_For_Fix";
-            this.DGV_Where_Field_For_Fix.Size = new System.Drawing.Size(623, 80);
-            this.DGV_Where_Field_For_Fix.TabIndex = 14;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 344);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 20);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Where Fields :";
-            this.label3.UseCompatibleTextRendering = true;
-            // 
-            // DGV_Update_Fields_For_Fix
-            // 
-            this.DGV_Update_Fields_For_Fix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_Update_Fields_For_Fix.Location = new System.Drawing.Point(6, 261);
-            this.DGV_Update_Fields_For_Fix.Name = "DGV_Update_Fields_For_Fix";
-            this.DGV_Update_Fields_For_Fix.Size = new System.Drawing.Size(623, 80);
-            this.DGV_Update_Fields_For_Fix.TabIndex = 12;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 238);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 20);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Update Fieds :";
-            this.label2.UseCompatibleTextRendering = true;
-            // 
-            // DGV_Input_For_Fix
-            // 
-            this.DGV_Input_For_Fix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_Input_For_Fix.Location = new System.Drawing.Point(6, 153);
-            this.DGV_Input_For_Fix.Name = "DGV_Input_For_Fix";
-            this.DGV_Input_For_Fix.Size = new System.Drawing.Size(623, 80);
-            this.DGV_Input_For_Fix.TabIndex = 10;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 130);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Input Fields :";
-            this.label1.UseCompatibleTextRendering = true;
             // 
             // tb_Execute
             // 
@@ -577,7 +588,7 @@ namespace AI_Developer
             this.tb_Execute.Location = new System.Drawing.Point(4, 22);
             this.tb_Execute.Name = "tb_Execute";
             this.tb_Execute.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Execute.Size = new System.Drawing.Size(635, 602);
+            this.tb_Execute.Size = new System.Drawing.Size(742, 596);
             this.tb_Execute.TabIndex = 1;
             this.tb_Execute.Text = "Execute";
             this.tb_Execute.UseVisualStyleBackColor = true;
@@ -587,6 +598,7 @@ namespace AI_Developer
             this.DGV_Input_Filter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Input_Filter.Location = new System.Drawing.Point(404, 127);
             this.DGV_Input_Filter.Name = "DGV_Input_Filter";
+            this.DGV_Input_Filter.RowHeadersWidth = 51;
             this.DGV_Input_Filter.Size = new System.Drawing.Size(225, 202);
             this.DGV_Input_Filter.TabIndex = 19;
             this.DGV_Input_Filter.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_Input_Filter_Cell_Leav);
@@ -597,6 +609,7 @@ namespace AI_Developer
             this.DGV_Input_Fix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Input_Fix.Location = new System.Drawing.Point(6, 127);
             this.DGV_Input_Fix.Name = "DGV_Input_Fix";
+            this.DGV_Input_Fix.RowHeadersWidth = 51;
             this.DGV_Input_Fix.Size = new System.Drawing.Size(392, 202);
             this.DGV_Input_Fix.TabIndex = 19;
             // 
@@ -747,30 +760,11 @@ namespace AI_Developer
             this.Cmb_Ticket_ProvidingFix.TabIndex = 1;
             this.Cmb_Ticket_ProvidingFix.SelectedIndexChanged += new System.EventHandler(this.Cmb_Ticket_ProvidingFix_SelectedIndexChanged);
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.dgv_Gen_Query_Log);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(635, 602);
-            this.tabPage2.TabIndex = 2;
-            this.tabPage2.Text = "Logs";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // dgv_Gen_Query_Log
-            // 
-            this.dgv_Gen_Query_Log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Gen_Query_Log.Location = new System.Drawing.Point(6, 6);
-            this.dgv_Gen_Query_Log.Name = "dgv_Gen_Query_Log";
-            this.dgv_Gen_Query_Log.Size = new System.Drawing.Size(623, 80);
-            this.dgv_Gen_Query_Log.TabIndex = 11;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 660);
+            this.ClientSize = new System.Drawing.Size(764, 654);
             this.Controls.Add(this.tb_main);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -782,17 +776,26 @@ namespace AI_Developer
             this.tb_Login.PerformLayout();
             this.tb_Configure.ResumeLayout(false);
             this.tb_Configure.PerformLayout();
+            this.tb_Config.ResumeLayout(false);
+            this.tab_config_db.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Configuration)).EndInit();
-            this.tb_Utility.ResumeLayout(false);
-            this.tb_Utility.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tb_ca_fix.ResumeLayout(false);
             this.tb_Add_Fix.ResumeLayout(false);
             this.tb_Add_Fix.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Check_Feasibility)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Where_Field_For_Fix)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Update_Fields_For_Fix)).EndInit();
+            this.Tab_Input.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_For_Fix)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_Update_Fields_For_Fix)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_Where_Field_For_Fix)).EndInit();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_Check_Feasibility)).EndInit();
             this.tb_Execute.ResumeLayout(false);
             this.tb_Execute.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Input_Filter)).EndInit();
@@ -856,18 +859,6 @@ namespace AI_Developer
         private System.Windows.Forms.DataGridView DGV_Input_Filter;
         private System.Windows.Forms.DataGridView DGV_Check_Feasibility;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button Btn_Utility_Backup_STP_All_Db;
-        private System.Windows.Forms.TextBox Txt_UtilityInputTxt;
-        private System.Windows.Forms.Button Btn_Utility_Output_Path;
-        private System.Windows.Forms.TextBox Txt_Utility_Output_Path;
-        private System.Windows.Forms.Label Lbl_OutPut_Path;
-        private System.Windows.Forms.RadioButton Rd_Utility_Alter;
-        private System.Windows.Forms.RadioButton Rd_Utility_Create;
-        private System.Windows.Forms.Button Btn_Fix_Path_Browse;
-        private System.Windows.Forms.TextBox Txt_Fix_Path;
-        private System.Windows.Forms.Label Lbl_Fix_Path;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.DataGridView dgv_Gen_Query_Log;
     }
 }
 
